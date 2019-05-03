@@ -1,0 +1,17 @@
+cd_syslog-ng:
+  image: tekintian/syslog-ng-alpine:latest
+  privileged: false
+  restart: always
+  ports:
+  - 514:514/udp
+  - '6514'
+  - 601:601
+  volumes:
+  - /var/log/syslog-ng:/var/log/syslog-ng
+  - /home/syslog-ng:/etc/syslog-ng
+  - /var/run/syslog-ng:/var/run/syslog-ng
+  environment:
+  - VIRTUAL_PORT=601
+  - VIRTUAL_PROTO=http
+  - VIRTUAL_HOST=log.tekin.cn
+

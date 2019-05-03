@@ -4,8 +4,10 @@ LABEL maintainer="TekinTian <tekintian@gmail.com>"
 
 ARG SYSLOG_VERSION="3.20.1"
 ARG BUILD_CORES=2
+COPY src/* /tmp/
 
-RUN apk add --no-cache \
+RUN sed -i -e 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/' /etc/apk/repositories && \
+    apk add --no-cache \
     glib \
     pcre \
     eventlog \
@@ -21,9 +23,8 @@ RUN apk add --no-cache \
     tzdata \
     && set -ex \
     && cd /tmp \
-    && curl -sSL "https://github.com/balabit/syslog-ng/releases/download/syslog-ng-${SYSLOG_VERSION}/syslog-ng-${SYSLOG_VERSION}.tar.gz" \
-        | tar xz \
-    && cd "syslog-ng-${SYSLOG_VERSION}" \
+    && tar -zxC /tmp -f syslog-ng-${SYSLOG_VERSION}.tar.gz \
+    && cd /tmp/syslog-ng-${SYSLOG_VERSION} \
     && ./configure -q --prefix=/usr \
     && make -j $BUILD_CORES \
     && make install \

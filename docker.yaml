@@ -1,5 +1,5 @@
 cd_syslog-ng:
-  image: tekintian/syslog-ng-alpine:latest
+  image: index.docker.io/tekintian/syslog-ng-alpine:latest
   privileged: false
   restart: always
   ports:
@@ -7,11 +7,11 @@ cd_syslog-ng:
   - '6514'
   - 601:601
   volumes:
-  - /var/log/syslog-ng:/var/log/syslog-ng
   - /home/syslog-ng:/etc/syslog-ng
-  - /var/run/syslog-ng:/var/run/syslog-ng
+  - /var/log/syslog-ng:/var/log/syslog-ng
   environment:
   - VIRTUAL_PORT=601
   - VIRTUAL_PROTO=http
   - VIRTUAL_HOST=log.tekin.cn
+
 

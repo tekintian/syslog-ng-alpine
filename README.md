@@ -49,7 +49,27 @@ services:
       - "./syslog-ng/config/:/etc/syslog-ng"
 ```
 
+## docker yaml with docker-gen
 
+~~~yaml
+syslog-ng:
+  image: index.docker.io/tekintian/syslog-ng-alpine:latest
+  privileged: false
+  restart: always
+  ports:
+  - 514:514/udp
+  - '6514'
+  - 601:601
+  volumes:
+  - /home/syslog-ng/conf:/etc/syslog-ng
+  - /home/syslog-ng/log:/var/log/syslog-ng
+  - /home/syslog-ng/socket:/var/run/syslog-ng
+  environment:
+  - VIRTUAL_PORT=601
+  - VIRTUAL_PROTO=http
+  - VIRTUAL_HOST=logs.yunnan.ws
+
+~~~
 
 docker run --name syslog-ng -it -d -p 514:514/udp -v /var/log/syslog-ng:/var/log/syslog-ng tekintian/syslog-ng-alpine
 

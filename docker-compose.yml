@@ -1,0 +1,13 @@
+version: '3'
+services:
+  syslog-ng:
+    container_name: syslog-ng
+    build: .
+    ports:
+      - "514:514"
+      - "601:601"
+      - "6514:6514"
+    volumes:
+      - "./syslog-ng/logs:/var/log/syslog-ng"
+      - "./syslog-ng/socket:/var/run/syslog-ng"
+      - "./syslog-ng/config/:/etc/syslog-ng"

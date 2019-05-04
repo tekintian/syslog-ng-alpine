@@ -70,6 +70,10 @@ syslog-ng:
   - VIRTUAL_HOST=logs.yunnan.ws
 
 ~~~
+If you want to export unix socket, just bind-mount /var/run/syslog-ng to host somewhere.
+
+If you want to change config, just bind-mount it to /etc/syslog-ng/syslog-ng.conf.
+
 
 docker run --name syslog-ng -it -d -p 514:514/udp -v /var/log/syslog-ng:/var/log/syslog-ng tekintian/syslog-ng-alpine
 

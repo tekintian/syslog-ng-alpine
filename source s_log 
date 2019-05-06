@@ -1,0 +1,5 @@
+source s_log { file("/var/log/auth.log"); file("/var/log/syslog"); };
+ 
+destination d_centserver { network("172.17.0.1" transport("tcp") port(601)); };
+ 
+log { source(s_log); destination(d_centserver); };
